@@ -14,7 +14,7 @@ on:
 
 jobs:
   release:
-    runs-on: macOS-15
+    runs-on: macOS-latest
 
     # Allow the workflow to push tags/commits back to the repo
     permissions:
@@ -35,13 +35,13 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v5
         with:
-          go-version: "1.23.1"
+          go-version: "1.25.0"
 
       # --- Set up Node (actions/setup-node@v4) ---
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "22"
 
       # --- Install gomobile toolchain ---
       - name: Setup Gomobile
@@ -82,7 +82,7 @@ jobs:
           echo "  targets: [" >> Package.swift
           echo "    .binaryTarget(" >> Package.swift
           echo "      name: \"Libbox\"," >> Package.swift
-          echo "      url: \"https://github.com/EbrahimTahernejad/sing-box-lib/releases/download/${{ github.event.inputs.version }}/Libbox.xcframework.zip\"," >> Package.swift
+          echo "      url: \"https://github.com/Nishiki-Asumi/sing-box-lib/releases/download/${{ github.event.inputs.version }}/Libbox.xcframework.zip\"," >> Package.swift
           echo "      checksum: \"${{ env.file_checksum }}\"" >> Package.swift
           echo "    )" >> Package.swift
           echo "  ]" >> Package.swift
@@ -93,8 +93,8 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Libbox Release ${{ github.event.inputs.version }}"
-          commit_user_name: "Ebrahim"
-          commit_user_email: "ebrahimtahernejad@gmail.com"
+          commit_user_name: "Nishiki-Asumi"
+          commit_user_email: "114177357+Nishiki-Asumi@users.noreply.github.com"
           tagging_message: "${{ github.event.inputs.version }}"
           file_pattern: Package.swift
 
